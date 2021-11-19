@@ -1,0 +1,64 @@
+/* #region css chung  */
+.mt-2{
+    margin-top: 2rem;
+}
+.mb-2{
+    margin-bottom: 2rem;
+}
+.d-flex{
+    display: flex;
+}
+.gap-2{
+    display: flex;
+    gap: 2rem;
+}
+/* #endregion css chung */
+/* #region css cho form */
+.input, .text-area, .select{
+    padding: 5px 10px 5px 10px;
+    outline: none;
+    border: solid 1px #cfd4db;
+    border-radius: 5px;
+}
+.form-title:focus{
+    border: solid 1px #b7ffcd;
+    outline: none;
+}
+.label{
+    text-align: left;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+.btn{
+    height: 40px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: larger;
+    font-weight: bold;
+    padding: 10px;
+}
+.btn-green{
+    background-color: rgb(12, 180, 63);
+}
+.btn-cyan{
+    background-color: rgb(28, 138, 228);
+}
+.btn-red{
+    background-color: rgb(243, 69, 69);
+}
+.btn-green:hover{
+    background-color: rgb(10, 143, 50);
+    transition: all ease .3s;
+}
+.btn-cyan:hover{
+    background-color: rgb(24, 113, 185);
+    transition: all ease .3s;
+}
+.btn-red:hover{
+    background-color: rgb(194, 47, 47);
+    transition: all ease .3s;
+}
+/* #endregion css cho form */
