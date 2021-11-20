@@ -12,6 +12,8 @@
 *{
   padding: 0;
   margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

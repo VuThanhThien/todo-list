@@ -5,24 +5,26 @@
       type="text"
       placeholder="Add new task..."
       class="form-title input mb-2"
+      ref="title"
       v-model="tempObject.title"
     />
     <!-- description -->
     <label class="label" for="description">Description</label>
     <textarea
       name="description"
-      class="description text-area"
+      class="description text-area mb-2"
       rows="10"
       v-model="tempObject.description"
     ></textarea>
     <!-- date and prio -->
-    <div class="d-flex gap-2">
+    <div class="d-flex gap-2 mb-2">
       <div class="due-date-block">
         <label class="label" for="description">Due Date</label>
         <input
           type="date"
           name="due-date"
           class="input"
+          ref="date"
           pattern="\d{4}-\d{2}-\d{2}"
           v-model="tempObject.dueDate"
         />
@@ -49,9 +51,11 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import moment from "moment";
 export default {
   name: "InsertForm",
   data() {
+    let today = new Date();
     return {
       priorityOptions: [
         { value: 1, title: "low" },
@@ -61,8 +65,8 @@ export default {
       tempObject: {
         title: "",
         description: "",
-        dueDate: "",
-        prioriry: 0,
+        dueDate: moment(today).format('YYYY-MM-DD'),
+        prioriry: 2,
       },
     };
   },
@@ -90,7 +94,13 @@ export default {
           this.tempObject.id = this.makeid(8);
           this.listWork.push(this.tempObject);
           this.loadWork(this.listWork);
-          this.tempObject = {};
+          let today = new Date();
+          this.tempObject = {
+            title: "",
+            description: "",
+            dueDate: moment(today).format('YYYY-MM-DD'),
+            prioriry: 2,
+          };
         } else {
           // call api update this object
           let index = this.listWork.findIndex((x) => x.id === this.tempObject.id);
@@ -99,9 +109,17 @@ export default {
         }
       };
     },
+    /**validate title and duedate */
     validate(){
       if(!this.tempObject.title){
-        alert("title is required !!");
+        this.$refs.title.focus()
+        alert("Title is required !!");
+        return 0;
+      };
+      let today = new Date();
+      if (moment(this.tempObject.dueDate).isSameOrAfter(today, 'day') === false) {
+        this.$refs.date.focus(); 
+        alert("Choose a future due date!!");
         return 0;
       }
       return 1;

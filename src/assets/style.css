@@ -37,7 +37,7 @@
     border-radius: 10px;
     color: #fff;
     font-weight: bold;
-    padding: 10px;
+    padding: 10px 30px 10px 30px;
 }
 .btn-green{
     background-color: rgb(12, 180, 63);
@@ -61,3 +61,8 @@
     transition: all ease .3s;
 }
 /* #endregion css cho form */
+@media screen and (max-width: 992px) {
+    .btn{
+        padding: 10px ;
+    }
+  }

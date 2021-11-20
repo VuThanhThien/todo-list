@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="container">
     <div class="new-tab-side">
       <InsertForm> Add </InsertForm>
     </div>
@@ -10,10 +10,11 @@
         class="input-search input mb-2"
         v-model="searchQuery"
       />
+      <!-- #region list work -->
       <div v-for="item in resultQuery" :key="item.id" >
-        <div class="list-work-wrapper">
-          <div class="work-element">
-            <input type="checkbox" />
+        <div class="work-element-wrapper">
+          <div class="work-element" :class="{'bottom-none' : onClickDetail == item.id }">
+            <input type="checkbox" v-model="listSelectedID" :value="item.id"/>
             <div class="title-work">{{ item.title }}</div>
             <button
               class="btn btn-cyan"
@@ -28,6 +29,18 @@
           </InsertForm>
         </div>
       </div>
+      <!-- #endregion list work -->
+      <!-- #region bulk action -->
+      <div class="work-element-wrapper fixed" v-if="this.listSelectedID.length > 0">
+        <div class="work-element">
+          <div class="title-work text-left">Bulk Action:</div>
+          <button class="btn btn-cyan">
+            Done
+          </button>
+          <button class="btn btn-red" @click="onClickRemoveAll">Remove</button>
+        </div>
+      </div>
+      <!-- #endregion bulk action -->
     </div>
   </div>
 </template>
@@ -43,7 +56,7 @@ export default {
       listWork: [],
       onClickDetail: null,
       searchQuery: null,
-      a: null,
+      listSelectedID: [],
     };
   },
   methods: {
@@ -51,6 +64,14 @@ export default {
     onClickRemove(id){
       let index = this.listWork.findIndex((x) => x.id === id);
       this.listWork.splice(index, 1);
+      this.loadWork(this.listWork);
+    },
+    onClickRemoveAll(){
+      this.listSelectedID.forEach(element => {
+        let index = this.listWork.findIndex((x) => x.id === element.id);
+        this.listWork.splice(index, 1);
+      });
+      this.listSelectedID = [];
       this.loadWork(this.listWork);
     }
   },
@@ -81,7 +102,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.main {
+.container {
   height: auto;
   width: auto;
   margin-left: auto;
@@ -91,26 +112,26 @@ export default {
   .new-tab-side,
   .list-work-side {
     width: 50%;
-    padding: 30px;
+    padding: 30px 30px 100px 30px;
   }
 }
 .input {
   height: 40px;
   width: 100%;
 }
+.input-search{
+  margin-top: 20px;
+}
 .input-search:focus {
   border: solid 1px #b7ffcd;
   outline: none;
   height: 40px;
 }
-.list-work-wrapper {
+.work-element-wrapper {
   width: 100%;
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
-}
-.input {
-  height: 40px;
 }
 .work-element {
   display: flex;
@@ -128,5 +149,26 @@ export default {
 input[type="checkbox" i] {
   height: 20px;
   width: 20px;
+}
+.text-left{
+  text-align: left;
+}
+.fixed{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+.bottom-none{
+  border-bottom: none;
+}
+@media screen and (max-width: 992px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  .new-tab-side,
+  .list-work-side {
+    width: auto !important;
+  }
 }
 </style>
