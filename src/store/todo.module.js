@@ -16,8 +16,13 @@ const getters = {
 };
 
 const actions = {
+  /**Dùng để load lên store, lưu trữ vào localStorage */
   loadWork({ commit }, payload) {
+    // sắp xếp theo thời gian
+    payload = payload.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
     commit("LOAD_WORK", payload);
+    // lưu vào local storage
+    localStorage.setItem("listWork", JSON.stringify(payload));
   },
 };
 

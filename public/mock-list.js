@@ -1,26 +1,30 @@
 export const listWork = [
     {
-        title: "a",
-        description:"a",
-        dueDate:"05/10/1999",
-        prioriry: 0
+        id: "0",
+        title: "do homework",
+        description:"do homework",
+        dueDate:"2021-11-06",
+        prioriry: 1
     },
     {
-        title: "a",
-        description:"a",
-        dueDate:"05/10/1999",
-        prioriry: 0
+        id: "1",
+        title: "Thăm người ốm",
+        description:"thăm người ốm",
+        dueDate:"2021-11-06",
+        prioriry: 1
     },
     {
-        title: "a",
+        id: "2",
+        title: "đi đám cưới",
         description:"a",
-        dueDate:"05/10/1999",
-        prioriry: 0
+        dueDate:"2021-11-06",
+        prioriry: 2
     },
     {
-        title: "a",
+        id: "3",
+        title: "Đi phỏng vấn",
         description:"a",
-        dueDate:"05/10/1999",
-        prioriry: 0
+        dueDate:"2021-11-06",
+        prioriry: 3
     }
 ];
