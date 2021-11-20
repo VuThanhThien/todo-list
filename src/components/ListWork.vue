@@ -11,17 +11,31 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'; 
 import { listWork } from "../../public/mock-list.js";
 export default {
     name: "List",
     data(){
         return{
-            listWork: listWork,
+            listWork: [],
         }
     },
+    methods:{
+        ...mapActions(["loadWork"]),
+    },
     created(){
-        this.listWork = listWork;
-    }
+        let list = localStorage.getItem("listWork");
+        if(!!list){
+            this.listWork = list;
+        }
+        else{
+            this.listWork = listWork;
+        };
+        if(this.listWork){
+            let payload = this.listWork
+            this.loadWork(payload);
+        }
+    },
 }
 </script>
 
