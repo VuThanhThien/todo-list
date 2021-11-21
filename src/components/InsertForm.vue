@@ -58,9 +58,9 @@ export default {
     let today = new Date();
     return {
       priorityOptions: [
-        { value: 1, title: "low" },
-        { value: 2, title: "normal" },
-        { value: 3, title: "high" },
+        { value: 1, title: "Low" },
+        { value: 2, title: "Normal" },
+        { value: 3, title: "High" },
       ],
       tempObject: {
         title: "",

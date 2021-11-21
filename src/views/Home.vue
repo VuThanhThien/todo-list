@@ -1,9 +1,13 @@
 <template>
   <div class="container">
+    <!--#region Form thêm work mới -->
     <div class="new-tab-side">
       <InsertForm> Add </InsertForm>
     </div>
+    <!-- #endregion  -->
+    <!--#region List work -->
     <div class="list-work-side">
+      <!-- search -->
       <input
         type="text"
         placeholder="Search..."
@@ -42,6 +46,7 @@
       </div>
       <!-- #endregion bulk action -->
     </div>
+    <!-- #endregion  -->
   </div>
 </template>
 <script>
@@ -61,11 +66,17 @@ export default {
   },
   methods: {
     ...mapActions(["loadWork"]),
+    /**Xóa một 
+     * @param  id id của phần tử cần xóa
+    */
     onClickRemove(id){
       let index = this.listWork.findIndex((x) => x.id === id);
       this.listWork.splice(index, 1);
       this.loadWork(this.listWork);
     },
+    /**
+     * Xóa nhiều
+     */
     onClickRemoveMultiTask(){
       this.listSelectedID.forEach(element => {
         let index = this.listWork.findIndex((x) => x.id === element);
@@ -81,6 +92,9 @@ export default {
     }
   },
   computed:{
+    /**
+     * Lọc theo search
+     */
     resultQuery(){
       if(this.searchQuery){
       return this.listWork.filter((item)=>{
@@ -92,6 +106,8 @@ export default {
     }
   },
   watch: {
+    /**Theo dõi list work, nếu có phần tử đã select nào không nằm trong listwork thì xóa đi
+     */
     listWork: function () {
       for (let i = 0; i < this.listSelectedID.length; i++) {
         const element = this.listSelectedID[i];
@@ -103,13 +119,17 @@ export default {
     }
   },
   created() {
-    /**Lấy từ local storage ra, nếu không có thì gán mặc định mảng bằng giá trị fix tự tạo */
+    //Lấy từ local storage ra,
     let list = JSON.parse(localStorage.getItem("listWork")) ;
+    // Nếu có thì gán 
     if (!!list) {
       this.listWork = list;
-    } else {
+    } 
+    // không thì gán mặc định bằng data fix cứng trong public tạo trước :V
+    else {
       this.listWork = listWork;
     }
+    // load lên store (...)
     if (this.listWork) {
       let payload = this.listWork;
       this.loadWork(payload);
