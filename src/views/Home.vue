@@ -37,7 +37,7 @@
           <button class="btn btn-cyan">
             Done
           </button>
-          <button class="btn btn-red" @click="onClickRemoveAll">Remove</button>
+          <button class="btn btn-red" @click="onClickRemoveMultiTask">Remove</button>
         </div>
       </div>
       <!-- #endregion bulk action -->
@@ -66,13 +66,18 @@ export default {
       this.listWork.splice(index, 1);
       this.loadWork(this.listWork);
     },
-    onClickRemoveAll(){
+    onClickRemoveMultiTask(){
       this.listSelectedID.forEach(element => {
-        let index = this.listWork.findIndex((x) => x.id === element.id);
-        this.listWork.splice(index, 1);
+        let index = this.listWork.findIndex((x) => x.id === element);
+        if(index > -1){
+          this.listWork.splice(index, 1);
+        }
       });
-      this.listSelectedID = [];
+      this.clearSelectedID();
       this.loadWork(this.listWork);
+    },
+    clearSelectedID(){
+      this.listSelectedID = [];
     }
   },
   computed:{
@@ -83,6 +88,17 @@ export default {
       })
       }else{
         return this.listWork;
+      }
+    }
+  },
+  watch: {
+    listWork: function () {
+      for (let i = 0; i < this.listSelectedID.length; i++) {
+        const element = this.listSelectedID[i];
+        let index = this.listWork.findIndex((x) => x.id === element);
+        if(index < 0){
+          this.listSelectedID.splice(i, 1);
+        }
       }
     }
   },
